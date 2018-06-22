@@ -1,0 +1,10 @@
+uuid: 82148865dea35aca52804f4b15ec97f6
+destination: /usr/src/app
+ignore:
+  - .git
+  - node_modules/
+local_resinos:
+  app-name: local-app
+  build-triggers:
+    - Dockerfile: faf50b76a10651f046972ca6cbd15ad934800724aa61bd2566cac4e0e5df6fb0
+  environment: []
