@@ -38,3 +38,6 @@ jspm_packages
 
 # TS compiled output
 dist
+
+.vscode
+.DS_Store
