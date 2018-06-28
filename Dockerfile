@@ -1,4 +1,4 @@
-FROM resin/raspberry-pi-debian:stretch AS builder
+FROM resin/raspberry-pi-debian:stretch AS kernel-builder
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -49,9 +49,11 @@ RUN apk --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testin
 RUN mkdir -p /app/modules \
     && mkdir -p /etc/voicecard
 
-COPY --from=builder /opt/seeed-voicecard/*.ko /app/modules/
-COPY --from=builder /opt/seeed-voicecard/*.conf /etc/voicecard/
-COPY --from=builder /opt/seeed-voicecard/*.state /etc/voicecard/
+COPY --from=kernel-builder /opt/seeed-voicecard/*.ko /app/modules/
+COPY --from=kernel-builder /opt/seeed-voicecard/*.dtbo /etc/voicecard/
+COPY --from=kernel-builder /opt/seeed-voicecard/*.dts /etc/voicecard/
+COPY --from=kernel-builder /opt/seeed-voicecard/*.conf /etc/voicecard/
+COPY --from=kernel-builder /opt/seeed-voicecard/*.state /etc/voicecard/
 
 COPY --from=node-builder /build /app/
 COPY --from=node-builder /build/node_modules /app/node_modules/
