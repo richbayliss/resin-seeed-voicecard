@@ -1,4 +1,4 @@
-FROM resin/raspberry-pi-debian:stretch AS kernel-builder
+FROM resin/raspberrypi3-debian:stretch AS kernel-builder
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     libraspberrypi-bin alsa-utils \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ARG HEADERS_URL="https://files.resin.io/images/raspberry-pi/2.12.7%2Brev1.prod/kernel_modules_headers.tar.gz"
+ARG HEADERS_URL="https://files.resin.io/images/raspberrypi3/2.12.7%2Brev1.prod/kernel_modules_headers.tar.gz"
 ARG HEADERS_PATH=/tmp/kernel_modules_headers
 ARG MODULE_URL="https://github.com/respeaker/seeed-voicecard/archive/master.tar.gz"
 ARG MODULE_PATH="/opt/seeed-voicecard"
@@ -28,7 +28,7 @@ RUN mkdir -p $MODULE_PATH \
 
 ##################################################
 
-FROM resin/raspberry-pi-alpine-node:8-slim AS node-builder
+FROM resin/raspberrypi3-alpine-node:8-slim AS node-builder
 
 RUN apk --no-cache add python make g++
 
@@ -41,7 +41,7 @@ RUN npm i
 
 ##################################################
 
-FROM resin/raspberry-pi-alpine-node:8-slim
+FROM resin/raspberrypi3-alpine-node:8-slim
 
 RUN apk --no-cache add alsa-utils
 RUN apk --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing add i2c-tools
