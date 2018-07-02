@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  voicecard:
+    build: .
+    privileged: true
+    restart: always
+    network_mode: host
+    labels:
+      io.resin.features.kernel-modules: '1'
+      io.resin.features.firmware: '1'
+      io.resin.features.dbus: '1'
+      io.resin.features.supervisor-api: '1'
+      io.resin.features.resin-api: '1'
